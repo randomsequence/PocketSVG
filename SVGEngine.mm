@@ -833,8 +833,13 @@ hexTriplet::hexTriplet(NSString *str)
         str = mapped;
     }
     
+    if (![str hasPrefix:@"#"] || !([str length] == 4 || [str length] == 7)) {
+        str = @"#000000";
+    }
+    
     NSCParameterAssert([str hasPrefix:@"#"]);
     NSCParameterAssert([str length] == 4 || [str length] == 7);
+    
     if([str length] == 4) {
         str = [str mutableCopy];
         [(NSMutableString *)str insertString:[str substringWithRange:(NSRange) { 3, 1 }]
