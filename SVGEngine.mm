@@ -354,7 +354,7 @@ NSDictionary *svgParser::readAttributes()
            ([attr isEqualToString:@"fill"] || [attr isEqualToString:@"stroke"]))
         {
             if([attrs[attr] isEqual:@"none"]) {
-                CGColorSpaceRef const colorSpace = CGColorSpaceCreateDeviceRGB();
+                CGColorSpaceRef const colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
                 attrs[attr] = (__bridge_transfer id)CGColorCreate(colorSpace, (CGFloat[]) { 1, 1, 1, 0 });
                 CFRelease(colorSpace);
             } else
@@ -862,7 +862,7 @@ hexTriplet::hexTriplet(CGColorRef const color)
 
 CGColorRef hexTriplet::CGColor()
 {
-    CGColorSpaceRef const colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGColorSpaceRef const colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
     CGColorRef const color = CGColorCreate(colorSpace,
                                            (CGFloat[]) {
                                                ((_data & 0xFF0000) >> 16) / (CGFloat)255.0,
